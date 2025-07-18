@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sermons - Sarepta Tabernacle Fellowship</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --primary-color: #223d63;
+      --secondary-color: #f4f8fc;
+      --accent-color: #1a2b4a;
+      --light: #eef4ff;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--secondary-color);
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    header,
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    header img {
+      width: 70px;
+      margin-bottom: 10px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 10px 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    a.back-link:hover {
+      background-color: var(--accent-color);
+    }
+
+    input,
+    button {
+      padding: 10px;
+      margin: 10px 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: var(--accent-color);
+    }
+
+    #adminPanel {
+      display: none;
+      padding: 20px;
+      background-color: var(--light);
+      border: 2px dashed var(--primary-color);
+      border-radius: 10px;
+      margin-top: 40px;
+    }
+
+    #loginPrompt {
+      padding: 20px;
+      margin-top: 30px;
+      background-color: #fff0f0;
+      border: 1px solid #cc4444;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #loginPrompt input {
+      width: 220px;
+    }
+
+    #loginMessage {
+      color: red;
+      margin-top: 10px;
+    }
+
+    .sermon-item {
+      margin-bottom: 10px;
+    }
+
+    .church-images img {
+      width: 120px;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .radio-player {
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #eaf1ff;
+      border: 2px solid var(--primary-color);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      header img {
+        width: 50px;
+      }
+
+      .church-images img {
+        width: 90px;
+      }
+
+      input,
+      button {
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="photos/images.jpg" alt="Church Logo" />
+    <h1>Sermons</h1>
+  </header>
+
+  <div class="container">
+    <!-- Pastor Radio Player -->
+    <div class="radio-player">
+      <h2>📻 Pastor Josuah Radio - 24/7 Preaching</h2>
+      <audio id="radioPlayer" controls autoplay></audio>
+      <p id="currentAudioInfo"></p>
+    </div>
+
+    <h2>Faith-Building Sermons by Pastor Josuah Ndaya</h2>
+    <p>
+      Listen to Spirit-filled messages that will edify your soul and strengthen
+      your walk with Christ. Check back regularly for new uploads and teachings.
+    </p>
+    <p><em>🎧 Coming Soon: Audio and video sermons archive</em></p>
+
+    <div id="sermonDisplay">
+      <h3>🎙️ Available Sermons</h3>
+      <div id="sermonList"></div>
+
+      <h3>🏛️ Church Gallery</h3>
+      <div class="church-images" id="churchImages"></div>
+    </div>
+
+    <!-- Admin Login -->
+    <div id="loginPrompt">
+      <h3>🔐 Admin Access</h3>
+      <input type="password" id="adminPassword" placeholder="Enter password" />
+      <button onclick="checkPassword()">Login</button>
+      <p id="loginMessage"></p>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel">
+      <h3>✅ Admin Panel</h3>
+
+      <fieldset style="border:1px solid #ccc; padding:10px; margin-bottom:20px;">
+        <legend><strong>Sermon Management</strong></legend>
+        <input type="text" id="sermonLink" placeholder="Enter sermon URL" />
+        <button onclick="addSermon()">Add Sermon</button>
+        <br />
+        <label for="audioFile">Upload Sermon Audio (MP3):</label><br />
+        <input type="file" id="audioFile" accept="audio/mp3" />
+        <button onclick="uploadSermonAudio()">Upload Audio</button>
+      </fieldset>
+
+      <fieldset style="border:1px solid #ccc; padding:10px; margin-bottom:20px;">
+        <legend><strong>Church Images Upload</strong></legend>
+        <label for="churchImageFile">Upload Church Image:</label><br />
+        <input type="file" id="churchImageFile" accept="image/*" />
+        <button onclick="uploadChurchImage()">Upload Image</button>
+      </fieldset>
+    </div>
+
+    <a class="back-link" href="index.html">&larr; Back to Home</a>
+  </div>
+
+  <footer>&copy; 2025 Sarepta Tabernacle Fellowship | All Rights Reserved.</footer>
+
+  <script>
+    const SERMON_KEY = 'sermons';
+    const CHURCH_IMAGE_KEY = 'churchImages';
+    const AUDIO_KEY = 'pastorAudios';
+    const ADMIN_PASSWORD = 'SAREPTA2025';
+    let audioIndex = 0;
+
+    window.onload = () => {
+      displaySermons();
+      displayChurchImages();
+      loadAudioPlaylist();
+    };
+
+    function displaySermons() {
+      const sermons = JSON.parse(localStorage.getItem(SERMON_KEY)) || [];
+      const list = document.getElementById('sermonList');
+      list.innerHTML = '';
+      sermons.forEach((link, i) => {
+        list.innerHTML += `<div class="sermon-item">📖 <a href="${link}" target="_blank">Sermon ${i + 1}</a></div>`;
+      });
+    }
+
+    function displayChurchImages() {
+      const images = JSON.parse(localStorage.getItem(CHURCH_IMAGE_KEY)) || [];
+      const gallery = document.getElementById('churchImages');
+      gallery.innerHTML = '';
+      images.forEach((img) => {
+        gallery.innerHTML += `<img src="${img}" alt="Church" />`;
+      });
+    }
+
+    function checkPassword() {
+      const entered = document.getElementById('adminPassword').value;
+      if (entered === ADMIN_PASSWORD) {
+        document.getElementById('adminPanel').style.display = 'block';
+        document.getElementById('loginPrompt').style.display = 'none';
+      } else {
+        document.getElementById('loginMessage').textContent = '❌ Incorrect password.';
+      }
+    }
+
+    function addSermon() {
+      const link = document.getElementById('sermonLink').value.trim();
+      if (!link) return alert('Please enter a valid link.');
+      const sermons = JSON.parse(localStorage.getItem(SERMON_KEY)) || [];
+      sermons.push(link);
+      localStorage.setItem(SERMON_KEY, JSON.stringify(sermons));
+      document.getElementById('sermonLink').value = '';
+      displaySermons();
+    }
+
+    function uploadChurchImage() {
+      const file = document.getElementById('churchImageFile').files[0];
+      if (!file) return alert('Please select an image.');
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const images = JSON.parse(localStorage.getItem(CHURCH_IMAGE_KEY)) || [];
+        images.push(e.target.result);
+        localStorage.setItem(CHURCH_IMAGE_KEY, JSON.stringify(images));
+        displayChurchImages();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function uploadSermonAudio() {
+      const file = document.getElementById('audioFile').files[0];
+      if (!file) return alert('Please select an audio file.');
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const audios = JSON.parse(localStorage.getItem(AUDIO_KEY)) || [];
+        audios.push(e.target.result);
+        localStorage.setItem(AUDIO_KEY, JSON.stringify(audios));
+        loadAudioPlaylist();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function loadAudioPlaylist() {
+      const audios = JSON.parse(localStorage.getItem(AUDIO_KEY)) || [];
+      const player = document.getElementById('radioPlayer');
+      const info = document.getElementById('currentAudioInfo');
+      if (audios.length === 0) {
+        player.style.display = 'none';
+        if (info) info.textContent = '';
+        return;
+      }
+      player.style.display = 'block';
+      player.src = audios[audioIndex];
+      if (info) info.textContent = `Now Playing: Sermon ${audioIndex + 1}`;
+      player.onended = () => {
+        audioIndex = (audioIndex + 1) % audios.length;
+        player.src = audios[audioIndex];
+        player.play();
+        if (info) info.textContent = `Now Playing: Sermon ${audioIndex + 1}`;
+      };
+    }
+  </script>
+</body>
+</html>

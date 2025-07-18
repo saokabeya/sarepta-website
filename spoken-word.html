@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spoken Word - Sarepta Tabernacle Fellowship</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fafafa;
+      color: #2c3e50;
+      margin: 0;
+    }
+    header, footer {
+      background: #223d63;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+    h2, p {
+      text-align: center;
+    }
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #223d63;
+      font-weight: bold;
+    }
+    .admin-panel {
+      display: none;
+      border: 2px solid #223d63;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .gallery img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .bible-verse {
+      background: #e3f2fd;
+      padding: 15px;
+      border-left: 5px solid #223d63;
+      margin-bottom: 20px;
+    }
+    ul { list-style-type: disc; margin-left: 20px; }
+    .audio-player a { display: block; margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <header><h1>Spoken Word Ministry</h1></header>
+
+  <div class="container">
+    <div class="bible-verse" id="bibleVerse">Loading daily Bible verse...</div>
+
+    <h2>Prophetic Insights and Teachings</h2>
+    <p>This ministry is dedicated to sharing direct, inspired messages grounded in the revealed Word. We encourage believers to seek deeper revelation through the Spoken Word of God.</p>
+
+    <!-- Picture section -->
+    <div class="gallery" id="prophetPhoto">
+      <img src="photos/branham.jpg" alt="Prophet William Marrion Branham">
+    </div>
+
+    <h3 id="quoteOfTheDay">Quote of the Day: None yet</h3>
+
+    <h4>Shared Links:</h4>
+    <ul id="linkList"></ul>
+
+    <h4>Shared Books:</h4>
+    <ul id="bookList"></ul>
+
+    <h4>Audio Messages:</h4>
+    <div class="audio-player" id="audioList"></div>
+
+    <div class="admin-panel" id="adminPanel">
+      <h3>Admin Panel - Upload Content</h3>
+
+      <label>Quote of the Day: <input type="text" id="quoteInput"></label>
+      <button onclick="addQuote()">Add Quote</button><br><br>
+
+      <label>New Link: <input type="text" id="linkInput"></label>
+      <button onclick="addLink()">Add Link</button><br><br>
+
+      <label>New Book: <input type="text" id="bookInput"></label>
+      <button onclick="addBook()">Add Book</button><br><br>
+
+      <label>Audio Link: <input type="text" id="audioInput"></label>
+      <button onclick="addAudio()">Add Audio</button><br><br>
+
+      <h4>Delete All Content</h4>
+      <button onclick="clearAll()">Clear Everything</button>
+    </div>
+
+    <div style="text-align:center; margin-top: 20px;">
+      <input type="password" id="adminPass" placeholder="Enter Admin Password">
+      <button onclick="verifyLogin()">Login as Admin</button>
+    </div>
+
+    <a class="back-link" href="index.html">&larr; Back to Home</a>
+  </div>
+
+  <footer>&copy; 2025 Sarepta Tabernacle Fellowship</footer>
+
+  <script>
+    fetch('https://beta.ourmanna.com/api/v1/get/?format=text')
+      .then(response => response.text())
+      .then(verse => {
+        document.getElementById('bibleVerse').innerText = verse;
+      });
+
+    const quoteEl = document.getElementById("quoteOfTheDay");
+    const quoteInput = document.getElementById("quoteInput");
+    const linkList = document.getElementById("linkList");
+    const bookList = document.getElementById("bookList");
+    const audioList = document.getElementById("audioList");
+
+    if (localStorage.getItem("quote")) {
+      quoteEl.innerText = "Quote of the Day: " + localStorage.getItem("quote");
+    }
+
+    function addQuote() {
+      const quote = quoteInput.value.trim();
+      if (quote) {
+        localStorage.setItem("quote", quote);
+        quoteEl.innerText = "Quote of the Day: " + quote;
+        quoteInput.value = "";
+      }
+    }
+
+    function addLink() {
+      const link = document.getElementById("linkInput").value.trim();
+      if (link) {
+        saveToLocal("links", link);
+        renderLinks();
+        document.getElementById("linkInput").value = "";
+      }
+    }
+
+    function addBook() {
+      const book = document.getElementById("bookInput").value.trim();
+      if (book) {
+        saveToLocal("books", book);
+        renderBooks();
+        document.getElementById("bookInput").value = "";
+      }
+    }
+
+    function addAudio() {
+      const audio = document.getElementById("audioInput").value.trim();
+      if (audio) {
+        saveToLocal("audios", audio);
+        renderAudios();
+        document.getElementById("audioInput").value = "";
+      }
+    }
+
+    function saveToLocal(key, value) {
+      const list = JSON.parse(localStorage.getItem(key)) || [];
+      list.push(value);
+      localStorage.setItem(key, JSON.stringify(list));
+    }
+
+    function renderList(key, element, formatFn) {
+      element.innerHTML = "";
+      const items = JSON.parse(localStorage.getItem(key)) || [];
+      items.forEach(item => {
+        const el = document.createElement("li");
+        el.innerHTML = formatFn(item);
+        element.appendChild(el);
+      });
+    }
+
+    function renderLinks() {
+      renderList("links", linkList, link => `<a href="${link}" target="_blank">${link}</a>`);
+    }
+
+    function renderBooks() {
+      renderList("books", bookList, book => book);
+    }
+
+    function renderAudios() {
+      audioList.innerHTML = "";
+      const audios = JSON.parse(localStorage.getItem("audios")) || [];
+      audios.forEach(audio => {
+        const div = document.createElement("div");
+        div.innerHTML = `<a href="${audio}" target="_blank">🎧 Listen to Audio</a>`;
+        audioList.appendChild(div);
+      });
+    }
+
+    function clearAll() {
+      if (confirm("Are you sure you want to clear all shared content?")) {
+        localStorage.removeItem("quote");
+        localStorage.removeItem("links");
+        localStorage.removeItem("books");
+        localStorage.removeItem("audios");
+        quoteEl.innerText = "Quote of the Day: None yet";
+        linkList.innerHTML = "";
+        bookList.innerHTML = "";
+        audioList.innerHTML = "";
+      }
+    }
+
+    function verifyLogin() {
+      const pass = document.getElementById("adminPass").value;
+      if (pass === "SAREPTA2025") {
+        document.getElementById("adminPanel").style.display = "block";
+        document.getElementById("adminPass").style.display = "none";
+      } else {
+        alert("Incorrect password.");
+      }
+    }
+
+    // Initial rendering
+    renderLinks();
+    renderBooks();
+    renderAudios();
+  </script>
+</body>
+</html>

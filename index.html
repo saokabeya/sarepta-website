@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAREPTA TABERNACLE FELLOWSHIP</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: url("photos/CLOUD OF GLORY.jpg") no-repeat center center
+          fixed;
+        background-size: cover;
+        color: #fff;
+        line-height: 1.6;
+      }
+
+      header {
+        position: relative;
+        background-color: rgba(47, 58, 117, 0.9);
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        z-index: 10;
+        height: 100px;
+      }
+
+      header img {
+        width: 80px;
+        height: auto;
+        margin-right: 20px;
+        z-index: 2;
+        position: relative;
+      }
+
+      .scrolling-text {
+        position: absolute;
+        white-space: nowrap;
+        font-size: 1.5em;
+        animation: scroll-right 10s linear infinite;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 100%;
+        z-index: 1; /* behind the logo */
+      }
+
+      @keyframes scroll-right {
+        0% {
+          left: 100%;
+        }
+        100% {
+          left: -100%;
+        }
+      }
+
+      nav {
+        background-color: rgba(30, 42, 90, 0.9);
+        padding: 10px 20px;
+        position: relative;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        justify-content: flex-end;
+      }
+
+      .nav-links li a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+        top: 10px;
+      }
+
+      .hamburger span {
+        height: 3px;
+        width: 25px;
+        background: white;
+        margin: 4px 0;
+        border-radius: 3px;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          background-color: rgba(30, 42, 90, 0.95);
+          position: absolute;
+          right: 0;
+          top: 50px;
+          width: 200px;
+          padding: 10px;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+      }
+
+      .welcome {
+        text-align: center;
+        padding: 40px 20px;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .section {
+        padding: 20px;
+        margin: 10px;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        color: #000;
+      }
+
+      h3 {
+        color: #2f3a75;
+      }
+
+      .ministries-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 15px;
+        margin-top: 10px;
+      }
+
+      .ministry-box {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        border-radius: 8px;
+        transition: transform 0.3s, background-color 0.3s;
+      }
+
+      .ministry-box img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .ministry-box:hover img {
+        transform: scale(1.1);
+      }
+
+      .ministry-box.animate {
+        transform: scale(1.05);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .social-media {
+        text-align: center;
+        padding: 15px;
+      }
+
+      .social-media a {
+        margin: 0 10px;
+      }
+
+      footer {
+        background-color: #2f3a75;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      iframe {
+        width: 100%;
+        height: 300px;
+        border: none;
+        border-radius: 8px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #2f3a75;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #48a672;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="photos/images.jpg" alt="Church Logo" />
+      <div class="scrolling-text">
+        Welcome to the official page of Sarepta Tabernacle
+      </div>
+    </header>
+
+    <nav>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#">Home</a></li>
+        <li><a href="#ministries-title">Ministries</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="welcome">
+      <h2>Sarepta Tabernacle Fellowship</h2>
+      <p>
+        Our mission is to preach the Message of the Hour, which is the Word of
+        Christ made manifest to the chosen people of God.
+      </p>
+      <button id="learnMoreBtn">Read More</button>
+    </div>
+
+    <div class="section">
+      <h3 id="ministries-title" style="cursor: pointer">📖 Our Ministries</h3>
+      <div class="ministries-grid">
+        <div class="ministry-box" id="sermons">
+          <a href="sermons.html"><img src="photos/wmb.jpg" alt="Sermons" /></a>
+          <h4>Sermons</h4>
+          <p>Weekly Spirit-led messages...</p>
+        </div>
+
+        <div class="ministry-box" id="sunday-school">
+          <a href="sunday-school.html"
+            ><img src="photos/kids sunday school.webp" alt="Sunday School"
+          /></a>
+          <h4>Sunday School</h4>
+          <p>Biblical teachings for children...</p>
+        </div>
+        <div class="ministry-box" id="bible-study">
+          <a href="bible-study.html"
+            ><img src="photos/bible background.jpg" alt="Bible Study"
+          /></a>
+          <h4>Bible Study</h4>
+          <p>Interactive group sessions...</p>
+        </div>
+        <div class="ministry-box" id="spoken-word">
+          <a href="spoken-word.html"
+            ><img src="photos/branham.jpg" alt="Spoken Word"
+          /></a>
+          <h4>Spoken Word</h4>
+          <p>Powerful expressions of faith...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>🕒 Fellowship Times</h3>
+      <ul>
+        <li><strong>Tuesdays:</strong> 17:30 – 19:30</li>
+        <li><strong>Sundays:</strong> 13:00 – 15:30</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>✝️ About Us</h3>
+      <p>
+        Sarepta Tabernacle Fellowship is an end-time Christian church rooted in
+        biblical truth, community, and worship. We welcome all to grow in
+        Christ, build strong faith, and experience life-changing fellowship.
+      </p>
+      <p><strong>Lead Pastor:</strong> Rev Pastor Josuah Ndaya</p>
+    </div>
+
+    <div class="section" id="contact">
+      <h3>📞 Contact Us</h3>
+      <p class="contact-info">
+        Phone/WhatsApp: <strong>+27 81 238 2573</strong>
+      </p>
+      <p>Email: <em>sareptafellowship@gmail.com</em></p>
+    </div>
+
+    <div class="section">
+      <h3>📍 Location</h3>
+      <p>5 1st Street, New Doornfontein, Johannesburg, South Africa</p>
+      <iframe
+        src="https://www.google.com/maps?q=5+1st+Street,+New+Doornfontein,+Johannesburg,+South+Africa&output=embed"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <div class="social-media">
+      <a href="https://web.facebook.com/share/v/1NbpebMGUH/" target="_blank">
+        <img
+          src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg"
+          alt="Facebook"
+          width="32"
+        />
+      </a>
+      <a
+        href="https://www.instagram.com/sareptatabernaclefellowship"
+        target="_blank"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg"
+          alt="Instagram"
+          width="32"
+        />
+      </a>
+      <a
+        href="https://www.youtube.com/@sareptatabernaclefellowship"
+        target="_blank"
+      >
+        <img
+          src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg"
+          alt="YouTube"
+          width="32"
+        />
+      </a>
+      <a href="https://wa.me/27812382573" target="_blank">
+        <img
+          src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg"
+          alt="WhatsApp"
+          width="32"
+        />
+      </a>
+    </div>
+
+    <footer>
+      &copy; 2025 Sarepta Tabernacle Fellowship | All Rights Reserved.
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("active");
+      }
+
+      document
+        .getElementById("ministries-title")
+        .addEventListener("click", () => {
+          document.querySelectorAll(".ministry-box").forEach((box, index) => {
+            box.classList.remove("animate");
+            void box.offsetWidth;
+            setTimeout(() => {
+              box.classList.add("animate");
+            }, index * 150);
+          });
+        });
+
+      function animateBox(id) {
+        const box = document.getElementById(id);
+        box.classList.remove("animate");
+        void box.offsetWidth;
+        box.classList.add("animate");
+      }
+
+      ["sermons", "sunday-school", "bible-study", "spoken-word"].forEach((id) =>
+        document
+          .getElementById(id)
+          .addEventListener("click", () => animateBox(id))
+      );
+
+      document.getElementById("learnMoreBtn").addEventListener("click", () => {
+        alert(
+          "We are excited to share the Word of God with you. Please explore our ministries and join our fellowship times!"
+        );
+      });
+    </script>
+  </body>
+</html>
