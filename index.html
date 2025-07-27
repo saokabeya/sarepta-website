@@ -20,154 +20,209 @@
       }
 
       header {
-        position: relative;
-        background-color: rgba(47, 58, 117, 0.9);
-        color: white;
-        padding: 10px 20px;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        z-index: 10;
-        height: 100px;
+        width: 100%;
       }
 
-      header img {
-        width: 80px;
-        height: auto;
-        margin-right: 20px;
-        z-index: 2;
+      .header-top {
+        background-color: rgba(12, 14, 24, 0.95);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        flex-wrap: wrap;
         position: relative;
+      }
+
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .header-logo img {
+        width: 70px;
+        height: auto;
       }
 
       .scrolling-text {
-        position: absolute;
         white-space: nowrap;
-        font-size: 1.5em;
+        font-size: 1.2em;
+        color: #fff;
         animation: scroll-right 10s linear infinite;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 100%;
-        z-index: 1; /* behind the logo */
       }
 
       @keyframes scroll-right {
         0% {
-          left: 100%;
+          transform: translateX(100%);
         }
         100% {
-          left: -100%;
+          transform: translateX(-100%);
         }
       }
 
-      nav {
-        background-color: rgba(30, 42, 90, 0.9);
-        padding: 10px 20px;
-        position: relative;
-      }
-
-      .nav-links {
-        list-style: none;
+      /* Hamburger menu: always visible and on right of logo */
+      .menu-toggle {
         display: flex;
-        gap: 20px;
-        justify-content: flex-end;
-      }
-
-      .nav-links li a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-      }
-
-      .hamburger {
-        display: none;
         flex-direction: column;
         cursor: pointer;
-        position: absolute;
-        right: 20px;
-        top: 10px;
+        gap: 5px;
       }
 
-      .hamburger span {
+      .menu-toggle span {
         height: 3px;
         width: 25px;
-        background: white;
-        margin: 4px 0;
-        border-radius: 3px;
+        background: #fff;
+        border-radius: 2px;
       }
 
-      @media (max-width: 768px) {
-        .nav-links {
-          display: none;
-          flex-direction: column;
-          background-color: rgba(30, 42, 90, 0.95);
-          position: absolute;
-          right: 0;
-          top: 50px;
-          width: 200px;
-          padding: 10px;
-        }
+      /* Nav menu hidden by default, toggled on click */
+      nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 20px;
+        right: 20px;
+        background: rgba(47, 58, 117, 0.95);
+        flex-direction: column;
+        border-radius: 8px;
+        padding: 10px 20px;
+        z-index: 100;
+        gap: 15px;
+      }
 
-        .nav-links.active {
-          display: flex;
-        }
+      nav.active {
+        display: flex;
+      }
 
-        .hamburger {
-          display: flex;
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1em;
+        padding: 5px 0;
+      }
+
+      /* Slider */
+      .slider-container {
+        margin-top: 0;
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+        background: #000;
+      }
+
+      .slider {
+        display: flex;
+        width: 500%;
+        transition: transform 1s ease-in-out;
+      }
+
+      @keyframes classic-shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-3px);
+        }
+        50% {
+          transform: translateX(3px);
+        }
+        75% {
+          transform: translateX(-3px);
         }
       }
 
-      .welcome {
-        text-align: center;
-        padding: 40px 20px;
-        background-color: rgba(0, 0, 0, 0.5);
+      .service-box img:hover {
+        animation: classic-shake 0.4s ease-in-out;
+        animation-iteration-count: 1;
+        cursor: pointer; /* adds a pointer cursor for clarity */
       }
 
+      .slider img {
+        width: 100vw;
+        height: 400px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      /* Arrows hidden by default */
+      .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.3);
+        border: none;
+        cursor: pointer;
+        z-index: 10;
+        padding: 10px;
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none; /* disable click when invisible */
+      }
+
+      /* Show arrows on hover over slider-container */
+      .slider-container:hover .arrow {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .arrow.left {
+        left: 10px;
+      }
+
+      .arrow.right {
+        right: 10px;
+      }
+
+      /* Sections */
       .section {
         padding: 20px;
         margin: 10px;
-        background: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.95);
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         color: #000;
-      
       }
 
-      h3 {
-        color: #2f3a75;
+      h3,
+      h2 {
+        color: #404b81;
+        text-align: center;
       }
 
-      .ministries-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 15px;
-        margin-top: 10px;
+      .services-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
       }
 
-      .ministry-box {
-        background-color: #fff;
+      .service-box {
+        background: #fff;
         border: 1px solid #ddd;
         padding: 10px;
+        border-radius: 10px;
+        width: 250px;
         text-align: center;
-        border-radius: 8px;
-        transition: transform 0.3s, background-color 0.3s;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       }
 
-      .ministry-box img {
+      .service-box img {
         width: 100%;
-        height: 150px;
+        height: 200px;
         object-fit: cover;
-        border-radius: 4px;
-        transition: transform 0.3s ease-in-out;
+        border-radius: 6px;
       }
 
-      .ministry-box:hover img {
-        transform: scale(1.1);
-      }
-
-      .ministry-box.animate {
-        transform: scale(1.05);
-        transition: transform 0.3s ease-in-out;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      iframe {
+        width: 100%;
+        height: 300px;
+        border: none;
+        border-radius: 8px;
       }
 
       .social-media {
@@ -180,127 +235,190 @@
       }
 
       footer {
-        background-color: #2f3a75;
+        background-color: #0b0c13;
         color: white;
         text-align: center;
-        padding: 10px;
+        padding: 15px;
         font-size: 14px;
       }
 
-      iframe {
-        width: 100%;
-        height: 300px;
-        border: none;
-        border-radius: 8px;
+      /* Remove old media query for nav */
+      /* Now nav toggle works the same on all screen sizes */
+
+      /* Accessibility focus outlines */
+      a:focus,
+      button:focus {
+        outline: 3px solid #2f3a75;
+        outline-offset: 2px;
       }
 
-      button {
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #2f3a75;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
+      .contact-grid {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 15px;
       }
 
-      button:hover {
-        background-color: #48a672;
+      .contact-item {
+        flex: 1 1 200px;
+      }
+
+      .contact-item strong {
+        display: block;
+        font-size: 1.1em;
+        color: #2f3a75;
+        margin-bottom: 8px;
+      }
+
+      .contact-item a {
+        text-decoration: none;
+        color: #000;
+        font-weight: bold;
+      }
+
+      .contact-item a:hover {
+        text-decoration: underline;
+      }
+      .us {
+        .container {
+          display: flex;
+          justify-content: center; /* or flex-start, flex-end, space-between, etc. */
+        }
       }
     </style>
   </head>
   <body>
     <header>
-      <img src="photos/images.jpg" alt="Church Logo" />
-      <div class="scrolling-text">
-        Welcome to the official page of Sarepta Tabernacle
+      <div class="header-top">
+        <div class="header-logo">
+          <img src="photos/images.jpg" alt="Church Logo" />
+          <div class="scrolling-text">
+            Welcome to the official page of Sarepta Tabernacle
+          </div>
+        </div>
+
+        <!-- Hamburger menu always visible on right side -->
+        <div
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          role="button"
+          tabindex="0"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <nav id="navMenu" role="navigation" aria-label="Primary navigation">
+          <a href="#">Home</a>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#times">Fellowship Times</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+
+      <div class="slider-container">
+        <button class="arrow left" id="prev" aria-label="Previous slide">
+          &#10094;
+        </button>
+        <button class="arrow right" id="next" aria-label="Next slide">
+          &#10095;
+        </button>
+        <div class="slider" id="slider">
+          <img
+            src="photos/ChatGPT Image Jul 27, 2025, 12_32_09 AM.png"
+            alt="Electric Car 1"
+            loading="lazy"
+          />
+          <img
+            src="photos/ChatGPT Image Jul 27, 2025, 12_32_38 AM.png"
+            alt="Electric Car 2"
+            loading="lazy"
+          />
+
+          <img src="photos/eternal.png" alt="Electric Car 2" loading="lazy" />
+        </div>
       </div>
     </header>
 
-    <nav>
-      <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#">Home</a></li>
-        <li><a href="#ministries-title">Ministries</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-
-    <div class="welcome">
-      <h2>Sarepta Tabernacle Fellowship</h2>
+    <div class="section" class="us" id="about">
+      <h2>✝️ About Us</h2>
       <p>
-        Our mission is to preach the Message of the Hour, which is the Word of
-        Christ made manifest to the chosen people of God.
+        Sarepta Tabernacle Fellowship is a Bible-believing church dedicated to
+        proclaiming the End Time Message as revealed through the prophetic
+        ministry of Brother William Marrion Branham.
       </p>
-      <button id="learnMoreBtn">Read More</button>
     </div>
 
-    <div class="section">
-      <h3 id="ministries-title" style="cursor: pointer">📖 Our Ministries</h3>
-      <div class="ministries-grid">
-        <div class="ministry-box" id="sermons">
-          <a href="sermons.html"><img src="photos/pastor.jpg" alt="Sermons" /></a>
+    <div class="section" id="services">
+      <h2>Our Ministries 👇</h2>
+      <div class="services-grid">
+        <div class="service-box">
+          <a href="sermons.html"
+            ><img src="photos/pastor.jpg" alt="Sermons"
+          /></a>
           <h4>Sermons</h4>
           <p>Weekly Spirit-led messages...</p>
         </div>
-
-        <div class="ministry-box" id="sunday-school">
-          <a href="sunday-school.html"
-            ><img src="photos/kids sunday school.webp" alt="Sunday School"
-          /></a>
-          <h4>Sunday School</h4>
-          <p>Biblical teachings for children...</p>
-        </div>
-        <div class="ministry-box" id="bible-study">
+        <div class="service-box">
           <a href="bible-study.html"
             ><img src="photos/bible background.jpg" alt="Bible Study"
           /></a>
           <h4>Bible Study</h4>
           <p>Interactive group sessions...</p>
         </div>
-        <div class="ministry-box" id="spoken-word">
+
+        <div class="service-box">
           <a href="spoken-word.html"
             ><img src="photos/branham.jpg" alt="Spoken Word"
           /></a>
           <h4>Spoken Word</h4>
           <p>Powerful expressions of faith...</p>
         </div>
+
+        <div class="service-box">
+          <a href="sunday-school.html"
+            ><img src="photos/kids sunday school.webp" alt="Sunday School"
+          /></a>
+          <h4>Sunday School</h4>
+          <p>Biblical teachings for children...</p>
+        </div>
       </div>
     </div>
 
-    <div class="section">
-      <h3>🕒 Fellowship Times</h3>
-      <ul>
+    <div class="section" id="times">
+      <h2>🕒 Fellowship Times</h2>
+      <ul style="text-align: center; list-style: none; padding: 0">
         <li><strong>Tuesdays:</strong> 17:30 – 19:30</li>
         <li><strong>Sundays:</strong> 13:00 – 15:30</li>
       </ul>
     </div>
 
-    <div class="section">
-      <h3>✝️ About Us</h3>
-      <p>
-        Sarepta Tabernacle Fellowship is an end-time Christian church rooted in
-        biblical truth, community, and worship. We welcome all to grow in
-        Christ, build strong faith, and experience life-changing fellowship.
-      </p>
-      <p><strong>Lead Pastor:</strong> Rev Pastor Joshua Ndaya</p>
-    </div>
-
     <div class="section" id="contact">
-      <h3>📞 Contact Us</h3>
-      <p class="contact-info">
-        Phone/WhatsApp: <strong>+27 81 238 2573</strong>
-      </p>
-      <p>Email: <em>sareptafellowship@gmail.com</em></p>
+      <h2>📞 Contact Us</h2>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <strong>Phone:</strong>
+          <p><a href="tel:+27812382573">+27 81 238 2573</a></p>
+        </div>
+        <div class="contact-item">
+          <strong>Email:</strong>
+          <p><a href="mailto:saokabeya@gmail.com">saokabeya@gmail.com</a></p>
+        </div>
+        <div class="contact-item">
+          <strong>Location:</strong>
+          <p>5 1st Street, New Doornfontein,<br />Johannesburg, South Africa</p>
+        </div>
+      </div>
     </div>
 
     <div class="section">
-      <h3>📍 Location</h3>
-      <p>5 1st Street, New Doornfontein, Johannesburg, South Africa</p>
+      <h2>📍 Location</h2>
       <iframe
         src="https://www.google.com/maps?q=5+1st+Street,+New+Doornfontein,+Johannesburg,+South+Africa&output=embed"
         allowfullscreen
@@ -308,7 +426,11 @@
     </div>
 
     <div class="social-media">
-      <a href="https://web.facebook.com/share/v/1NbpebMGUH/" target="_blank">
+      <a
+        href="https://web.facebook.com/share/v/1NbpebMGUH/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <img
           src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg"
           alt="Facebook"
@@ -318,6 +440,7 @@
       <a
         href="https://www.instagram.com/sareptatabernaclefellowship"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <img
           src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg"
@@ -328,6 +451,7 @@
       <a
         href="https://www.youtube.com/@sareptatabernaclefellowship"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <img
           src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg"
@@ -335,7 +459,11 @@
           width="32"
         />
       </a>
-      <a href="https://wa.me/27812382573" target="_blank">
+      <a
+        href="https://wa.me/27812382573"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <img
           src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg"
           alt="WhatsApp"
@@ -349,39 +477,48 @@
     </footer>
 
     <script>
-      function toggleMenu() {
-        document.getElementById("navLinks").classList.toggle("active");
+      const slider = document.getElementById("slider");
+      const prevBtn = document.getElementById("prev");
+      const nextBtn = document.getElementById("next");
+      const imagesCount = slider.children.length;
+      let currentIndex = 0;
+
+      function showSlide(index) {
+        slider.style.transform = `translateX(-${index * 100}vw)`;
       }
 
-      document
-        .getElementById("ministries-title")
-        .addEventListener("click", () => {
-          document.querySelectorAll(".ministry-box").forEach((box, index) => {
-            box.classList.remove("animate");
-            void box.offsetWidth;
-            setTimeout(() => {
-              box.classList.add("animate");
-            }, index * 150);
-          });
-        });
+      prevBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + imagesCount) % imagesCount;
+        showSlide(currentIndex);
+      });
 
-      function animateBox(id) {
-        const box = document.getElementById(id);
-        box.classList.remove("animate");
-        void box.offsetWidth;
-        box.classList.add("animate");
-      }
+      nextBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % imagesCount;
+        showSlide(currentIndex);
+      });
 
-      ["sermons", "sunday-school", "bible-study", "spoken-word"].forEach((id) =>
-        document
-          .getElementById(id)
-          .addEventListener("click", () => animateBox(id))
-      );
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % imagesCount;
+        showSlide(currentIndex);
+      }, 5000);
 
-      document.getElementById("learnMoreBtn").addEventListener("click", () => {
-        alert(
-          "We are excited to share the Word of God with you. Please explore our ministries and join our fellowship times!"
-        );
+      showSlide(currentIndex);
+
+      const menuToggle = document.getElementById("menuToggle");
+      const navMenu = document.getElementById("navMenu");
+
+      menuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+        const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+        menuToggle.setAttribute("aria-expanded", String(!expanded));
+      });
+
+      // Optional: allow toggling menu with Enter key for accessibility
+      menuToggle.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          menuToggle.click();
+        }
       });
     </script>
   </body>
