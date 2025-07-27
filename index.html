@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="shortcut icon" type="image/jpeg" href="photos/favicone.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SAREPTA TABERNACLE FELLOWSHIP</title>
     <style>
@@ -11,16 +12,21 @@
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         font-family: Arial, sans-serif;
         background: white;
-        background-size: cover;
         color: #fff;
         line-height: 1.6;
       }
 
       header {
         width: 100%;
+        position: relative;
+        overflow: hidden;
       }
 
       .header-top {
@@ -31,41 +37,52 @@
         padding: 10px 20px;
         flex-wrap: wrap;
         position: relative;
+        z-index: 2;
       }
 
       .header-logo {
+        position: relative;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 10px;
+        z-index: 2;
       }
 
       .header-logo img {
         width: 70px;
         height: auto;
+        z-index: 3;
       }
 
       .scrolling-text {
+        position: absolute;
+        top: 35%;
+        left: 100%;
         white-space: nowrap;
         font-size: 1.2em;
         color: #fff;
-        animation: scroll-right 10s linear infinite;
+        animation: scroll-behind 10s linear infinite;
+        z-index: 1;
+        pointer-events: none;
       }
 
-      @keyframes scroll-right {
+      @keyframes scroll-behind {
         0% {
-          transform: translateX(100%);
+          transform: translateX(0);
         }
         100% {
-          transform: translateX(-100%);
+          transform: translateX(-250%);
         }
       }
 
-      /* Hamburger menu: always visible and on right of logo */
       .menu-toggle {
         display: flex;
         flex-direction: column;
         cursor: pointer;
         gap: 5px;
+        min-width: 40px;
+        align-items: flex-end;
+        z-index: 2;
       }
 
       .menu-toggle span {
@@ -75,13 +92,11 @@
         border-radius: 2px;
       }
 
-      /* Nav menu hidden by default, toggled on click */
       nav {
         display: none;
         position: absolute;
         top: 60px;
         left: 20px;
-        right: 20px;
         background: rgba(47, 58, 117, 0.95);
         flex-direction: column;
         border-radius: 8px;
@@ -102,7 +117,6 @@
         padding: 5px 0;
       }
 
-      /* Slider */
       .slider-container {
         margin-top: 0;
         position: relative;
@@ -117,28 +131,6 @@
         transition: transform 1s ease-in-out;
       }
 
-      @keyframes classic-shake {
-        0%,
-        100% {
-          transform: translateX(0);
-        }
-        25% {
-          transform: translateX(-3px);
-        }
-        50% {
-          transform: translateX(3px);
-        }
-        75% {
-          transform: translateX(-3px);
-        }
-      }
-
-      .service-box img:hover {
-        animation: classic-shake 0.4s ease-in-out;
-        animation-iteration-count: 1;
-        cursor: pointer; /* adds a pointer cursor for clarity */
-      }
-
       .slider img {
         width: 100vw;
         height: 400px;
@@ -146,7 +138,6 @@
         flex-shrink: 0;
       }
 
-      /* Arrows hidden by default */
       .arrow {
         position: absolute;
         top: 50%;
@@ -161,10 +152,9 @@
         border-radius: 50%;
         opacity: 0;
         transition: opacity 0.3s ease;
-        pointer-events: none; /* disable click when invisible */
+        pointer-events: none;
       }
 
-      /* Show arrows on hover over slider-container */
       .slider-container:hover .arrow {
         opacity: 1;
         pointer-events: auto;
@@ -178,7 +168,6 @@
         right: 10px;
       }
 
-      /* Sections */
       .section {
         padding: 20px;
         margin: 10px;
@@ -188,8 +177,7 @@
         color: #000;
       }
 
-      h3,
-      h2 {
+      h2, h3 {
         color: #404b81;
         text-align: center;
       }
@@ -218,6 +206,19 @@
         border-radius: 6px;
       }
 
+      .service-box img:hover {
+        animation: shake 0.4s ease-in-out;
+        animation-iteration-count: 1;
+        cursor: pointer;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-3px); }
+        50% { transform: translateX(3px); }
+        75% { transform: translateX(-3px); }
+      }
+
       iframe {
         width: 100%;
         height: 300px;
@@ -242,10 +243,6 @@
         font-size: 14px;
       }
 
-      /* Remove old media query for nav */
-      /* Now nav toggle works the same on all screen sizes */
-
-      /* Accessibility focus outlines */
       a:focus,
       button:focus {
         outline: 3px solid #2f3a75;
@@ -281,12 +278,6 @@
       .contact-item a:hover {
         text-decoration: underline;
       }
-      .us {
-        .container {
-          display: flex;
-          justify-content: center; /* or flex-start, flex-end, space-between, etc. */
-        }
-      }
     </style>
   </head>
   <body>
@@ -299,7 +290,6 @@
           </div>
         </div>
 
-        <!-- Hamburger menu always visible on right side -->
         <div
           class="menu-toggle"
           id="menuToggle"
@@ -330,23 +320,14 @@
           &#10095;
         </button>
         <div class="slider" id="slider">
-          <img
-            src="photos/ChatGPT Image Jul 27, 2025, 12_32_09 AM.png"
-            alt="Electric Car 1"
-            loading="lazy"
-          />
-          <img
-            src="photos/ChatGPT Image Jul 27, 2025, 12_32_38 AM.png"
-            alt="Electric Car 2"
-            loading="lazy"
-          />
-
-          <img src="photos/eternal.png" alt="Electric Car 2" loading="lazy" />
+          <img src="photos/ChatGPT Image Jul 27, 2025, 12_32_09 AM.png" alt="Slide 1" />
+          <img src="photos/ChatGPT Image Jul 27, 2025, 12_32_38 AM.png" alt="Slide 2" />
+          <img src="photos/eternal.png" alt="Slide 3" />
         </div>
       </div>
     </header>
 
-    <div class="section" class="us" id="about">
+    <div class="section us" id="about">
       <h2>✝️ About Us</h2>
       <p>
         Sarepta Tabernacle Fellowship is a Bible-believing church dedicated to
@@ -359,32 +340,22 @@
       <h2>Our Ministries 👇</h2>
       <div class="services-grid">
         <div class="service-box">
-          <a href="sermons.html"
-            ><img src="photos/pastor.jpg" alt="Sermons"
-          /></a>
+          <a href="sermons.html"><img src="photos/pastor.jpg" alt="Sermons" /></a>
           <h4>Sermons</h4>
           <p>Weekly Spirit-led messages...</p>
         </div>
         <div class="service-box">
-          <a href="bible-study.html"
-            ><img src="photos/bible background.jpg" alt="Bible Study"
-          /></a>
+          <a href="bible-study.html"><img src="photos/bible background.jpg" alt="Bible Study" /></a>
           <h4>Bible Study</h4>
           <p>Interactive group sessions...</p>
         </div>
-
         <div class="service-box">
-          <a href="spoken-word.html"
-            ><img src="photos/branham.jpg" alt="Spoken Word"
-          /></a>
+          <a href="spoken-word.html"><img src="photos/branham.jpg" alt="Spoken Word" /></a>
           <h4>Spoken Word</h4>
           <p>Powerful expressions of faith...</p>
         </div>
-
         <div class="service-box">
-          <a href="sunday-school.html"
-            ><img src="photos/kids sunday school.webp" alt="Sunday School"
-          /></a>
+          <a href="sunday-school.html"><img src="photos/kids sunday school.webp" alt="Sunday School" /></a>
           <h4>Sunday School</h4>
           <p>Biblical teachings for children...</p>
         </div>
@@ -426,49 +397,17 @@
     </div>
 
     <div class="social-media">
-      <a
-        href="https://web.facebook.com/share/v/1NbpebMGUH/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg"
-          alt="Facebook"
-          width="32"
-        />
+      <a href="https://web.facebook.com/share/v/1NbpebMGUH/" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" width="32" />
       </a>
-      <a
-        href="https://www.instagram.com/sareptatabernaclefellowship"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg"
-          alt="Instagram"
-          width="32"
-        />
+      <a href="https://www.instagram.com/sareptatabernaclefellowship" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" width="32" />
       </a>
-      <a
-        href="https://www.youtube.com/@sareptatabernaclefellowship"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg"
-          alt="YouTube"
-          width="32"
-        />
+      <a href="https://www.youtube.com/@sareptatabernaclefellowship" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" width="32" />
       </a>
-      <a
-        href="https://wa.me/27812382573"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg"
-          alt="WhatsApp"
-          width="32"
-        />
+      <a href="https://wa.me/27812382573" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg" alt="WhatsApp" width="32" />
       </a>
     </div>
 
@@ -513,7 +452,6 @@
         menuToggle.setAttribute("aria-expanded", String(!expanded));
       });
 
-      // Optional: allow toggling menu with Enter key for accessibility
       menuToggle.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
