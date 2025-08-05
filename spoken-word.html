@@ -1,226 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Spoken Word - Sarepta Tabernacle Fellowship</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Life of William Marrion Branham</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    /* Reset & base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fafafa;
-      color: #2c3e50;
       margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f9fafb;
+      color: #222;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    header, footer {
-      background: #223d63;
+
+    /* Header styles */
+    header {
+      background: #1f2937;
       color: white;
-      text-align: center;
-      padding: 20px;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 30px 20px;
+    header h1 {
+      font-weight: 600;
+      font-size: 1.5rem;
+      user-select: none;
     }
-    h2, p {
-      text-align: center;
+
+    /* Navigation styles */
+    nav {
+      position: relative;
     }
-    a.back-link {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
       text-decoration: none;
-      color: #223d63;
-      font-weight: bold;
+      color: white;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    .admin-panel {
+    nav ul li a:hover,
+    nav ul li a:focus {
+      background-color: #2563eb; /* Blue-600 */
+      outline: none;
+    }
+
+    /* Hamburger button styles */
+    .hamburger {
       display: none;
-      border: 2px solid #223d63;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Main content styles */
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 30px 40px;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    section:last-child {
+      margin-bottom: 0;
+    }
+    section h2 {
+      color: #1e40af; /* Blue-800 */
+      font-weight: 600;
+      margin-bottom: 14px;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 6px;
+      font-size: 1.4rem;
+    }
+    section p, section ul {
+      font-size: 1.1rem;
+      color: #333;
+    }
+    section ul {
+      padding-left: 20px;
+      margin-top: 8px;
+    }
+    section ul li a {
+      color: #2563eb;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+    section ul li a:hover,
+    section ul li a:focus {
+      color: #1e3a8a;
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
       padding: 20px;
-      margin-top: 30px;
+      background: #1f2937;
+      color: white;
+      font-size: 0.9rem;
+      user-select: none;
     }
-    .gallery img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin: 20px 0;
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background: #1f2937;
+        position: absolute;
+        top: 58px;
+        right: 20px;
+        width: 180px;
+        border-radius: 8px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      nav ul.show {
+        max-height: 300px; /* enough for all menu items */
+      }
+      nav ul li {
+        margin: 12px 0;
+      }
+      .hamburger {
+        display: flex;
+      }
     }
-    .bible-verse {
-      background: #e3f2fd;
-      padding: 15px;
-      border-left: 5px solid #223d63;
-      margin-bottom: 20px;
+
+    /* Hamburger animation when active */
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
     }
-    ul { list-style-type: disc; margin-left: 20px; }
-    .audio-player a { display: block; margin-bottom: 5px; }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
   </style>
 </head>
 <body>
-  <header><h1>Spoken Word Ministry</h1></header>
+  <header>
+    <h1>Life of William Marrion Branham</h1>
+    <nav>
+      <div class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" role="button" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="library.html">Library</a></li>
+        <li><a href="bible.html">Bible</a></li>
+        <li><a href="log.html">Login</a></li>
+        <li><a href="log.html">Sign Up</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <div class="container">
-    <div class="bible-verse" id="bibleVerse">Loading daily Bible verse...</div>
+  <main class="branham-life">
+    <section>
+      <h2>Introduction</h2>
+      <p>William Marrion Branham (1909–1965) was an American Christian minister and healing evangelist who is considered by many believers to be a prophet sent to forerun the second coming of Jesus Christ.</p>
+    </section>
 
-    <h2>Prophetic Insights and Teachings</h2>
-    <p>This ministry is dedicated to sharing direct, inspired messages grounded in the revealed Word. We encourage believers to seek deeper revelation through the Spoken Word of God.</p>
+    <section>
+      <h2>Early Life</h2>
+      <p>Born in a small log cabin in Kentucky on April 6, 1909, Brother Branham experienced supernatural events from a young age. At just seven years old, a mysterious Voice from a whirlwind spoke to him, marking the beginning of a prophetic life.</p>
+    </section>
 
-    <!-- Picture section -->
-    <div class="gallery" id="prophetPhoto">
-      <img src="photos/branham.jpg" alt="Prophet William Marrion Branham">
-    </div>
+    <section>
+      <h2>Ministry and Healing Campaigns</h2>
+      <p>He began his public ministry in 1933 after receiving visions and instructions from the Lord. His ministry became known worldwide for miraculous healings, discernment, and divine revelations. He held healing campaigns across America and around the globe, drawing thousands.</p>
+    </section>
 
-    <h3 id="quoteOfTheDay">Quote of the Day: None yet</h3>
+    <section>
+      <h2>Visions and Prophecies</h2>
+      <p>Brother Branham delivered many prophecies, some of which have been fulfilled with astonishing accuracy. In 1933, he received a vision of seven major events that would happen before the end time, many of which have come to pass.</p>
+    </section>
 
-    <h4>Shared Links:</h4>
-    <ul id="linkList"></ul>
+    <section>
+      <h2>The Message</h2>
+      <p>Brother Branham preached over 1100 recorded sermons, which have been preserved as "The Message." These teachings are foundational to believers of the end-time message today and are freely distributed in book and audio formats.</p>
+    </section>
 
-    <h4>Shared Books:</h4>
-    <ul id="bookList"></ul>
+    <section>
+      <h2>Death and Legacy</h2>
+      <p>On December 24, 1965, William Branham died following a car accident. His ministry continues to inspire believers worldwide, and his message is distributed globally in over 60 languages.</p>
+    </section>
 
-    <h4>Audio Messages:</h4>
-    <div class="audio-player" id="audioList"></div>
+    <section>
+      <h2>Explore More</h2>
+      <ul>
+        <li><a href="https://branham.org/MessageAudio" target="_blank" rel="noopener noreferrer">Listen to Sermons</a></li>
+        <li><a href="https://branham.org/en/Bio" target="_blank" rel="noopener noreferrer">Full Biography on Branham.org</a></li>
+      </ul>
+    </section>
+  </main>
 
-    <div class="admin-panel" id="adminPanel">
-      <h3>Admin Panel - Upload Content</h3>
-
-      <label>Quote of the Day: <input type="text" id="quoteInput"></label>
-      <button onclick="addQuote()">Add Quote</button><br><br>
-
-      <label>New Link: <input type="text" id="linkInput"></label>
-      <button onclick="addLink()">Add Link</button><br><br>
-
-      <label>New Book: <input type="text" id="bookInput"></label>
-      <button onclick="addBook()">Add Book</button><br><br>
-
-      <label>Audio Link: <input type="text" id="audioInput"></label>
-      <button onclick="addAudio()">Add Audio</button><br><br>
-
-      <h4>Delete All Content</h4>
-      <button onclick="clearAll()">Clear Everything</button>
-    </div>
-
-    <div style="text-align:center; margin-top: 20px;">
-      <input type="password" id="adminPass" placeholder="Enter Admin Password">
-      <button onclick="verifyLogin()">Login as Admin</button>
-    </div>
-
-    <a class="back-link" href="index.html">&larr; Back to Home</a>
-  </div>
-
-  <footer>&copy; 2025 Sarepta Tabernacle Fellowship</footer>
+  <footer>
+    <p>&copy; 2025 Sarepta Tabernacle Fellowship. All rights reserved.</p>
+  </footer>
 
   <script>
-    fetch('https://beta.ourmanna.com/api/v1/get/?format=text')
-      .then(response => response.text())
-      .then(verse => {
-        document.getElementById('bibleVerse').innerText = verse;
-      });
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
 
-    const quoteEl = document.getElementById("quoteOfTheDay");
-    const quoteInput = document.getElementById("quoteInput");
-    const linkList = document.getElementById("linkList");
-    const bookList = document.getElementById("bookList");
-    const audioList = document.getElementById("audioList");
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('show');
+      hamburger.classList.toggle('active');
+      // update aria-expanded for accessibility
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', String(!expanded));
+    });
 
-    if (localStorage.getItem("quote")) {
-      quoteEl.innerText = "Quote of the Day: " + localStorage.getItem("quote");
-    }
-
-    function addQuote() {
-      const quote = quoteInput.value.trim();
-      if (quote) {
-        localStorage.setItem("quote", quote);
-        quoteEl.innerText = "Quote of the Day: " + quote;
-        quoteInput.value = "";
+    // Optional: allow keyboard toggle with Enter or Space
+    hamburger.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        hamburger.click();
       }
-    }
-
-    function addLink() {
-      const link = document.getElementById("linkInput").value.trim();
-      if (link) {
-        saveToLocal("links", link);
-        renderLinks();
-        document.getElementById("linkInput").value = "";
-      }
-    }
-
-    function addBook() {
-      const book = document.getElementById("bookInput").value.trim();
-      if (book) {
-        saveToLocal("books", book);
-        renderBooks();
-        document.getElementById("bookInput").value = "";
-      }
-    }
-
-    function addAudio() {
-      const audio = document.getElementById("audioInput").value.trim();
-      if (audio) {
-        saveToLocal("audios", audio);
-        renderAudios();
-        document.getElementById("audioInput").value = "";
-      }
-    }
-
-    function saveToLocal(key, value) {
-      const list = JSON.parse(localStorage.getItem(key)) || [];
-      list.push(value);
-      localStorage.setItem(key, JSON.stringify(list));
-    }
-
-    function renderList(key, element, formatFn) {
-      element.innerHTML = "";
-      const items = JSON.parse(localStorage.getItem(key)) || [];
-      items.forEach(item => {
-        const el = document.createElement("li");
-        el.innerHTML = formatFn(item);
-        element.appendChild(el);
-      });
-    }
-
-    function renderLinks() {
-      renderList("links", linkList, link => `<a href="${link}" target="_blank">${link}</a>`);
-    }
-
-    function renderBooks() {
-      renderList("books", bookList, book => book);
-    }
-
-    function renderAudios() {
-      audioList.innerHTML = "";
-      const audios = JSON.parse(localStorage.getItem("audios")) || [];
-      audios.forEach(audio => {
-        const div = document.createElement("div");
-        div.innerHTML = `<a href="${audio}" target="_blank">🎧 Listen to Audio</a>`;
-        audioList.appendChild(div);
-      });
-    }
-
-    function clearAll() {
-      if (confirm("Are you sure you want to clear all shared content?")) {
-        localStorage.removeItem("quote");
-        localStorage.removeItem("links");
-        localStorage.removeItem("books");
-        localStorage.removeItem("audios");
-        quoteEl.innerText = "Quote of the Day: None yet";
-        linkList.innerHTML = "";
-        bookList.innerHTML = "";
-        audioList.innerHTML = "";
-      }
-    }
-
-    function verifyLogin() {
-      const pass = document.getElementById("adminPass").value;
-      if (pass === "SAREPTA2025") {
-        document.getElementById("adminPanel").style.display = "block";
-        document.getElementById("adminPass").style.display = "none";
-      } else {
-        alert("Incorrect password.");
-      }
-    }
-
-    // Initial rendering
-    renderLinks();
-    renderBooks();
-    renderAudios();
+    });
   </script>
 </body>
 </html>
