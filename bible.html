@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sarepta Tabernacle Fellowship</title>
+  <style>
+    /* Base Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #2d2d7b;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0 0;
+      gap: 15px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    section {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      color: white;
+    }
+
+    .resource-button {
+      display: inline-block;
+      background: #2d2d7b;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    .resource-button:hover {
+      background: #1b1b5e;
+    }
+
+    /* Login/Signup Modals */
+    .modal {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 350px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+      padding: 1rem;
+      transition: right 0.4s ease;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      right: 0;
+    }
+
+    .modal h2 {
+      margin-top: 0;
+    }
+
+    .modal form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal input {
+      margin: 8px 0;
+      padding: 10px;
+      font-size: 1rem;
+    }
+
+    .modal button {
+      background: #2d2d7b;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .modal button:hover {
+      background: #1b1b5e;
+    }
+
+    .modal .close {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ccc;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sarepta Tabernacle Fellowship</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Life of Branham</a></li>
+        <li><a href="#">Library</a></li>
+        <li><a href="#" onclick="openModal('loginModal')">Login ✂</a></li>
+        <li><a href="#" onclick="openModal('signupModal')">Sign Up ✂</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="verse">
+      <h2>Daily Bible Verse</h2>
+      <div id="bibleVerse">Loading...</div>
+    </section>
+
+    <section class="quote">
+      <h2>Quote of the Day</h2>
+      <div id="quoteOfTheDay">Fetching...</div>
+    </section>
+
+    <section class="branham">
+      <h2>Life of William Marrion Branham</h2>
+      <p>Explore the full biography of God's prophet for the end time.</p>
+      <a href="#">Read Branham's Life Story</a>
+    </section>
+
+    <section class="library">
+      <h2>Library & Book Orders</h2>
+      <p>Browse and order our collection of Spoken Word books and teaching materials.</p>
+      <a href="#">Visit Library</a>
+    </section>
+
+    <section class="resources">
+      <h2>Resources</h2>
+      <p>
+        <a href="https://www.kingjamesbibleonline.org/" target="_blank" class="resource-button">Open KJV Bible</a><br><br>
+        <a href="https://branham.org/en/apps" target="_blank" class="resource-button">Download Branham Table</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sarepta Tabernacle Fellowship. All rights reserved.</p>
+  </footer>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <button class="close" onclick="closeModal('loginModal')">✕</button>
+    <h2>Login</h2>
+    <form onsubmit="event.preventDefault(); alert('Logged in!');">
+      <input type="text" placeholder="Username or Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <!-- Signup Modal -->
+  <div id="signupModal" class="modal">
+    <button class="close" onclick="closeModal('signupModal')">✕</button>
+    <h2>Sign Up</h2>
+    <form onsubmit="event.preventDefault(); alert('Account Created!');">
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Create Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    // Bible Verse Example (Random Verses)
+    const bibleVerses = [
+      "John 3:16 - For God so loved the world...",
+      "Psalm 23:1 - The Lord is my shepherd...",
+      "Romans 8:28 - All things work together for good...",
+      "Isaiah 41:10 - Fear not, for I am with you..."
+    ];
+
+    const quotes = [
+      "Only believe, all things are possible. – W.M. Branham",
+      "The greatest victory is surrender. – W.M. Branham",
+      "God doesn’t call the qualified, He qualifies the called.",
+      "You are God's masterpiece. Never forget it."
+    ];
+
+    document.getElementById("bibleVerse").innerText =
+      bibleVerses[Math.floor(Math.random() * bibleVerses.length)];
+
+    document.getElementById("quoteOfTheDay").innerText =
+      quotes[Math.floor(Math.random() * quotes.length)];
+  </script>
+
+</body>
+</html>
