@@ -14,18 +14,17 @@
       --highlight: #f7b500;
     }
 
-  body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url("photos/CLOUD\ OF\ GLORY.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  color: #2c3e50;
-  margin: 0;
-  scroll-behavior: smooth;
-}
-
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url("photos/CLOUD\ OF\ GLORY.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #2c3e50;
+      margin: 0;
+      scroll-behavior: smooth;
+    }
 
     header, footer {
       background-color: var(--primary-color);
@@ -123,28 +122,6 @@
       margin-bottom: 15px;
     }
 
-    .church-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .church-gallery img {
-      width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.12);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      object-fit: cover;
-      aspect-ratio: 4 / 3;
-      cursor: pointer;
-    }
-
-    .church-gallery img:hover {
-      transform: scale(1.07);
-      box-shadow: 0 8px 14px rgba(0,0,0,0.25);
-    }
-
     .modal {
       display: none;
       position: fixed;
@@ -227,11 +204,6 @@
       iframe {
         height: 240px;
       }
-
-      .church-gallery {
-        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-        gap: 10px;
-      }
     }
   </style>
 </head>
@@ -252,7 +224,7 @@
     <section class="radio-player section-box" aria-label="Pastor Josuah Radio player">
       <h2>📻 Pastor Joshua Radio - 24/7 Preaching</h2>
       <img src="photos/PODCAST.jpg" alt="Pastor Josuah Radio Banner" />
-      <audio controls autoplay loop>
+      <audio controls loop>
         <source src="EAGLE-BEATS-Piano-Instrumental-Worship-Beats.mp3" />
         Your browser does not support the audio element.
       </audio>
@@ -262,11 +234,11 @@
     <!-- Live Video Sermon -->
     <section class="video-player section-box" aria-label="Live sermon video player">
       <h2>📺 Live Video Sermon Stream</h2>
-      <iframe src="https://drive.google.com/file/d/1cgHu2fRC6KxTHoZqcxw2QCqwA5dIZMn8/view?usp=drive_link" 
-        
-              allow="autoplay; encrypted-media"
-              allowfullscreen
-              title="Live Sermon Stream">
+      <iframe 
+        src="https://drive.google.com/file/d/1cgHu2fRC6KxTHoZqcxw2QCqwA5dIZMn8/preview?autoplay=1"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+        title="Live Sermon Stream">
       </iframe>
       <p><b>Title: water of separation</b> .</p>
     </section>
@@ -274,8 +246,12 @@
     <!-- Church Gallery -->
     <section class="section-box" aria-label="Church image gallery">
       <h2>🏛️ Church Gallery</h2>
-      <div class="church-gallery" id="gallery">
-       
+      <!-- Clickable Gallery Box -->
+      <div id="galleryBox" 
+           style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;
+                  background-color:#eef4ff;border:2px dashed #254074;border-radius:10px;cursor:pointer;
+                  font-size:1.2em;color:#254074;">
+        📷 Click here to view Church Gallery
       </div>
     </section>
 
@@ -301,13 +277,20 @@
       else header.classList.remove('scrolled');
     });
 
-    const gallery = document.getElementById('gallery');
+    const galleryBox = document.getElementById('galleryBox');
     const modal = document.getElementById('modal');
     const modalImage = document.getElementById('modalImage');
     const modalClose = document.getElementById('modalClose');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const images = Array.from(gallery.querySelectorAll('img'));
+
+    // Sample gallery images
+    const images = [
+      { src: "photos/church1.jpg", alt: "Church Service Sample" },
+      { src: "photos/church2.jpg", alt: "Choir Worship" },
+      { src: "photos/church3.jpg", alt: "Prayer Meeting" }
+    ];
+
     let currentIndex = 0;
 
     function openModal(index) {
@@ -335,15 +318,8 @@
       modalImage.alt = images[currentIndex].alt;
     }
 
-    images.forEach((img, i) => {
-      img.addEventListener('click', () => openModal(i));
-      img.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openModal(i);
-        }
-      });
-    });
+    // Open modal on clicking gallery box (starts at first image)
+    galleryBox.addEventListener('click', () => openModal(0));
 
     modalClose.addEventListener('click', closeModal);
     modal.addEventListener('click', e => {
@@ -362,12 +338,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
