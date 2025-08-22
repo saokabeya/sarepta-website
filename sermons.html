@@ -122,6 +122,58 @@
       margin-bottom: 15px;
     }
 
+    /* Beautified Gallery Box */
+    #galleryBox {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url("pics/1.jpg") center/cover no-repeat;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.4em;
+      color: white;
+      font-weight: bold;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #galleryBox::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(7,23,54,0.55);
+      transition: background 0.3s ease;
+      border-radius: 12px;
+    }
+
+    #galleryBox:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    #galleryBox:hover::before {
+      background: rgba(7,23,54,0.35);
+    }
+
+    #galleryBox span {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #galleryBox span i {
+      font-size: 2em;
+      margin-bottom: 8px;
+    }
+
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -200,9 +252,11 @@
         justify-content: center;
         text-align: center;
       }
-
       iframe {
         height: 240px;
+      }
+      #galleryBox {
+        height: 150px;
       }
     }
   </style>
@@ -235,23 +289,20 @@
     <section class="video-player section-box" aria-label="Live sermon video player">
       <h2>📺 Live Video Sermon Stream</h2>
       <iframe 
-        src="https://drive.google.com/file/d/1qtOKUspAGufSgbj9FoKlmBXc4242hix8/view?usp=drive_link/preview?autoplay=1"
+        src="https://drive.google.com/file/d/1qtOKUspAGufSgbj9FoKlmBXc4242hix8/preview?autoplay=1"
         allow="autoplay; encrypted-media"
         allowfullscreen
         title="Live Sermon Stream">
       </iframe>
-      <p><b>Title: water of separation</b> .</p>
+      <p><b>Title: water of separation</b>.</p>
     </section>
 
     <!-- Church Gallery -->
     <section class="section-box" aria-label="Church image gallery">
       <h2>🏛️ Church Gallery</h2>
-      <!-- Clickable Gallery Box -->
-      <div id="galleryBox" 
-           style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;
-                  background-color:#eef4ff;border:2px dashed #254074;border-radius:10px;cursor:pointer;
-                  font-size:1.2em;color:#254074;">
-        📷 Click here to view Church Gallery
+      <!-- Beautified Clickable Gallery Box -->
+      <div id="galleryBox">
+        <span><i>📷</i> Click to Open Gallery</span>
       </div>
     </section>
 
@@ -286,9 +337,9 @@
 
     // Sample gallery images
     const images = [
-      { src: "pics/1.jpeg", alt: "Church Service Sample" },
-      { src: "pics/2.jpeg", alt: "Choir Worship" },
-      { src: "pics/3.jpeg", alt: "Prayer Meeting" }
+      { src: "pics/1.jpg", alt: "Church Service Sample" },
+      { src: "pics/2.jpg", alt: "Choir Worship" },
+      { src: "pics/3.jpg", alt: "Prayer Meeting" }
     ];
 
     let currentIndex = 0;
@@ -338,5 +389,3 @@
   </script>
 </body>
 </html>
-
-
