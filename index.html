@@ -41,17 +41,28 @@
       }
 
       .header-logo {
-        position: relative;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        z-index: 2;
+        gap: 10px;
+        color: #fff;
       }
 
       .header-logo img {
-        width: 70px;
-        height: auto;
-        z-index: 3;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: #0c0e18;
+        padding: 3px;
+        border: 2px solid #2f3a75;
+        box-shadow: 0 0 10px rgba(47, 58, 117, 0.5);
+      }
+
+      .header-logo h1 {
+        font-size: 1.2rem;
+        color: #fff;
+        letter-spacing: 1px;
+        text-transform: uppercase;
       }
 
       .scrolling-text {
@@ -177,7 +188,8 @@
         color: #000;
       }
 
-      h2, h3 {
+      h2,
+      h3 {
         color: #404b81;
         text-align: center;
       }
@@ -213,10 +225,19 @@
       }
 
       @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-3px); }
-        50% { transform: translateX(3px); }
-        75% { transform: translateX(-3px); }
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-3px);
+        }
+        50% {
+          transform: translateX(3px);
+        }
+        75% {
+          transform: translateX(-3px);
+        }
       }
 
       iframe {
@@ -280,14 +301,13 @@
       }
     </style>
   </head>
+
   <body>
     <header>
       <div class="header-top">
         <div class="header-logo">
           <img src="photos/images.jpg" alt="Church Logo" />
-          <div class="scrolling-text">
-            Welcome to Sarepta Tabernacle
-          </div>
+          <h1>Sarepta Tabernacle Fellowship</h1>
         </div>
 
         <div
@@ -313,12 +333,8 @@
       </div>
 
       <div class="slider-container">
-        <button class="arrow left" id="prev" aria-label="Previous slide">
-          &#10094;
-        </button>
-        <button class="arrow right" id="next" aria-label="Next slide">
-          &#10095;
-        </button>
+        <button class="arrow left" id="prev" aria-label="Previous slide">&#10094;</button>
+        <button class="arrow right" id="next" aria-label="Next slide">&#10095;</button>
         <div class="slider" id="slider">
           <img src="photos/ChatGPT Image Jul 27, 2025, 12_32_09 AM.png" alt="Slide 1" />
           <img src="photos/ChatGPT Image Jul 27, 2025, 12_32_38 AM.png" alt="Slide 2" />
@@ -330,10 +346,8 @@
     <div class="section us" id="about">
       <h2>✝️ About Us</h2>
       <p>
-       Sarepta Tabernacle Fellowship is a Bible-believing church located in Johannesburg, South Africa. We are dedicated to proclaiming the End Time Message of the Lord Jesus Christ as revealed through the prophetic ministry of Brother William Marrion Branham. Our desire is to see souls prepared for the soon-coming of our Lord and Savior, and to live out the full Gospel with love, faith, and holiness.
-
-We are not just a congregation, but a family of believers united in worship, fellowship, and service to God’s Kingdom. At Sarepta, we believe that every person has a place in God’s plan and that the Word of God is the absolute authority for Christian living
-        <br>
+        Sarepta Tabernacle Fellowship is a Bible-believing church located in Johannesburg, South Africa. We are dedicated to proclaiming the End Time Message of the Lord Jesus Christ as revealed through the prophetic ministry of Brother William Marrion Branham. Our desire is to see souls prepared for the soon-coming of our Lord and Savior, and to live out the full Gospel with love, faith, and holiness.
+        <br /><br />
         <b>Leader: Pastor Joshua Ndaya</b>
       </p>
     </div>
@@ -463,8 +477,3 @@ We are not just a congregation, but a family of believers united in worship, fel
     </script>
   </body>
 </html>
-
-
-
-
-
